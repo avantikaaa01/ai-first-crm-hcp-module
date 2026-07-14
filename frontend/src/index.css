@@ -1,0 +1,45 @@
+:root {
+  --ink: #10241F;
+  --ink-soft: #4B5D58;
+  --paper: #F6F7F4;
+  --surface: #FFFFFF;
+  --line: #DEE3DD;
+  --teal-900: #0E3B34;
+  --teal-700: #14534A;
+  --teal-500: #1E7A6C;
+  --teal-100: #E4EFEC;
+  --amber-600: #B9812C;
+  --amber-100: #FBF1DF;
+  --red-600: #B4432F;
+  --red-100: #FBEAE5;
+  --radius: 10px;
+  --font-display: "Inter Tight", "Inter", sans-serif;
+  --font-body: "Inter", sans-serif;
+}
+
+* { box-sizing: border-box; }
+
+html, body, #root {
+  height: 100%;
+  margin: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  background: var(--paper);
+  color: var(--ink);
+  -webkit-font-smoothing: antialiased;
+}
+
+button {
+  font-family: inherit;
+}
+
+::selection {
+  background: var(--teal-100);
+}
+
+*:focus-visible {
+  outline: 2px solid var(--teal-500);
+  outline-offset: 2px;
+}

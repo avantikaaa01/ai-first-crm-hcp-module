@@ -1,0 +1,48 @@
+.log-screen {
+  max-width: 1080px;
+}
+
+.log-screen-header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  margin-bottom: 20px;
+}
+
+.log-title {
+  font-family: var(--font-display);
+  font-size: 26px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  margin: 0 0 4px;
+}
+
+.log-subtitle {
+  font-size: 13.5px;
+  color: var(--ink-soft);
+  margin: 0;
+}
+
+.mode-toggle {
+  display: inline-flex;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 3px;
+}
+
+.mode-btn {
+  border: none;
+  background: transparent;
+  padding: 7px 16px;
+  font-size: 13px;
+  font-weight: 600;
+  color: var(--ink-soft);
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+.mode-btn--active {
+  background: var(--teal-700);
+  color: white;
+}
