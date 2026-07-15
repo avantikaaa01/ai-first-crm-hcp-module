@@ -8,9 +8,19 @@ export const fetchHcps = createAsyncThunk('hcps/fetch', async () => {
   return res.json()
 })
 
+export const createHcp = createAsyncThunk('hcps/create', async (payload) => {
+  const res = await fetch(`${API_BASE}/api/hcps/`, {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(payload),
+  })
+  if (!res.ok) throw new Error('Failed to add HCP')
+  return res.json()
+})
+
 const hcpSlice = createSlice({
   name: 'hcps',
-  initialState: { list: [], selectedId: null, status: 'idle', error: null },
+  initialState: { list: [], selectedId: null, status: 'idle', createStatus: 'idle', error: null },
   reducers: {
     selectHcp: (state, action) => {
       state.selectedId = action.payload
@@ -28,6 +38,16 @@ const hcpSlice = createSlice({
       })
       .addCase(fetchHcps.rejected, (state, action) => {
         state.status = 'failed'
+        state.error = action.error.message
+      })
+      .addCase(createHcp.pending, (state) => { state.createStatus = 'loading' })
+      .addCase(createHcp.fulfilled, (state, action) => {
+        state.createStatus = 'succeeded'
+        state.list.unshift(action.payload)
+        state.selectedId = action.payload.id
+      })
+      .addCase(createHcp.rejected, (state, action) => {
+        state.createStatus = 'failed'
         state.error = action.error.message
       })
   },

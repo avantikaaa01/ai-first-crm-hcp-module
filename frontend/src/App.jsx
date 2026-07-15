@@ -1,12 +1,14 @@
-import React, { useEffect } from 'react'
+import React, { useEffect, useState } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { fetchHcps, selectHcp } from './features/interactions/hcpSlice'
 import LogInteractionScreen from './components/LogInteractionScreen'
+import AddHcpModal from './components/AddHcpModal'
 import './App.css'
 
 export default function App() {
   const dispatch = useDispatch()
   const { list: hcps, selectedId, status } = useSelector((s) => s.hcps)
+  const [showAddModal, setShowAddModal] = useState(false)
 
   useEffect(() => {
     dispatch(fetchHcps())
@@ -26,7 +28,10 @@ export default function App() {
 
       <div className="app-body">
         <aside className="hcp-rail">
-          <div className="rail-label">Your HCPs</div>
+          <div className="rail-top">
+            <div className="rail-label">Your HCPs</div>
+            <button className="add-hcp-btn" onClick={() => setShowAddModal(true)}>+ Add HCP</button>
+          </div>
           {status === 'loading' && <div className="rail-empty">Loading HCPs…</div>}
           {status === 'failed' && (
             <div className="rail-empty">
@@ -57,6 +62,8 @@ export default function App() {
           )}
         </main>
       </div>
+
+      {showAddModal && <AddHcpModal onClose={() => setShowAddModal(false)} />}
     </div>
   )
 }
