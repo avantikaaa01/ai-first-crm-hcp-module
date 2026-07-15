@@ -117,3 +117,20 @@ harden for production: session storage for chat (currently in-memory per
 process — needs Redis for multi-worker deployments), auth/RBAC for reps vs.
 managers, retry/backoff around the Groq calls, and a proper migrations setup
 (Alembic) instead of `create_all`.
+
+
+## Other things worth knowing
+
+- **Adding new HCPs**: click "+ Add HCP" in the sidebar to register a new
+  doctor (name, specialty, hospital, tier) via `POST /api/hcps/`. The 3 seeded
+  doctors from `seed.py` are just a starting point, not a fixed list.
+- **Per-doctor chat isolation**: each HCP has its own chat session and tool-call
+  history in the frontend, so switching doctors in the sidebar doesn't leak one
+  rep conversation into another's screen.
+- **Persisted history**: below the chat/form on each HCP's screen, "Logged
+  history" pulls interactions straight from the database (`GET
+  /api/interactions/?hcp_id=...`), so logged records are visibly there even
+  after a page refresh — proof the data is real, not just chat state.
+- **Date-aware follow-ups**: the agent is given the actual current date on
+  every turn so relative references ("next month", "in 2 weeks") resolve to
+  real calendar dates instead of being guessed from the LLM's training data.
